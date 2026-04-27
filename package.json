@@ -1,0 +1,17 @@
+{
+  "name": "terun-vc-bot",
+  "version": "1.0.0",
+  "description": "てるんVC常駐ボット",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "@discordjs/voice": "^0.18.0",
+    "discord.js": "^14.18.0",
+    "dotenv": "^16.4.0",
+    "libsodium-wrappers": "^0.8.3",
+    "node-cron": "^4.2.1",
+    "tweetnacl": "^1.0.3"
+  }
+}
