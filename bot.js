@@ -46,8 +46,14 @@ const TERUN_LEAVE_MESSAGES = [
   '無理しないでね🫧 おやすみなさい💤',
 ];
 
-function rand(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+const lastUsed = new Map();
+
+function rand(arr, key = 'default') {
+  const last = lastUsed.get(key);
+  const candidates = arr.length > 1 ? arr.filter(v => v !== last) : arr;
+  const chosen = candidates[Math.floor(Math.random() * candidates.length)];
+  lastUsed.set(key, chosen);
+  return chosen;
 }
 
 function isActiveHours() {
