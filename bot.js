@@ -51,6 +51,7 @@ const TERUN_LEAVE_MESSAGES = [
 ];
 
 const lastUsed = new Map();
+const lastGreeted = new Map(); // userId → timestamp
 
 function rand(arr, key = 'default') {
   const last = lastUsed.get(key);
@@ -139,6 +140,11 @@ client.on('voiceStateUpdate', async (oldState, newState) => {
   if (!member || member.user.bot) return;
 
   if (newState.channelId === VOICE_CHANNEL_ID && oldState.channelId !== VOICE_CHANNEL_ID) {
+    const now = Date.now();
+    const last = lastGreeted.get(member.id);
+    if (last && now - last < 60 * 60 * 1000) return;
+    lastGreeted.set(member.id, now);
+
     try {
       const ch = await client.channels.fetch(CHANNEL_GREETING);
       if (!ch) return;
